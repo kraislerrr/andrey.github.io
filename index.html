@@ -40,6 +40,7 @@
         canvas {
         border: 1px solid rgb(198, 38, 38);
         }
+        
     </style>
 </head>
 <body>
@@ -74,7 +75,9 @@
         <h2>Ссылки</h2>
         <p><a href="https://www.linkedin.com/in/andrey-pavlushov" target="_blank">Мой LinkedIn</a></p>
         <p><a href="https://github.com/kraislerrr" target="_blank">Мой GitHub</a></p>
+        <div id="swipeArea">
         <canvas width="160" height="320" id="game"></canvas>
+        </div>
         <footer>
             <p><span class="copyleft">&copy;</span> 1999 Иван Иванов. Все права защищены.</p>
         </footer>
@@ -358,7 +361,69 @@
             }
           }
         }
-    
+        // управление тачем
+    const swipeArea = document.getElementById('swipeArea');
+
+let touchStartX = 0;
+let touchStartY = 0;
+let touchEndX = 0;
+let touchEndY = 0;
+
+swipeArea.addEventListener('touchstart', function(event) {
+  touchStartX = event.changedTouches[0].screenX;
+  touchStartY = event.changedTouches[0].screenY;
+}, false);
+
+swipeArea.addEventListener('touchend', function(event) {
+  touchEndX = event.changedTouches[0].screenX;
+  touchEndY = event.changedTouches[0].screenY;
+  handleSwipeGesture();
+}, false);
+
+function handleSwipeGesture() {
+  const deltaX = touchEndX - touchStartX;
+  const deltaY = touchEndY - touchStartY;
+
+  if (Math.abs(deltaX) > Math.abs(deltaY)) {
+    if (deltaX > 0) {
+      // если влево, то уменьшаем индекс в столбце, если вправо — увеличиваем
+      const col = tetromino.col + 1;
+    // если так ходить можно, то запоминаем текущее положение 
+    if (isValidMove(tetromino.matrix, tetromino.row, col)) {
+      tetromino.col = col;
+    }
+    } else {
+      // если влево, то уменьшаем индекс в столбце, если вправо — увеличиваем
+      const col = tetromino.col - 1;
+    // если так ходить можно, то запоминаем текущее положение 
+    if (isValidMove(tetromino.matrix, tetromino.row, col)) {
+      tetromino.col = col;
+    }
+    }
+  } else {
+    if (deltaY > 0) {
+        // смещаем фигуру на строку вниз
+    const row = tetromino.row + 1;
+    // если опускаться больше некуда — запоминаем новое положение
+    if (!isValidMove(tetromino.matrix, row, tetromino.col)) {
+      tetromino.row = row - 1;
+      // ставим на место и смотрим на заполненные ряды
+      placeTetromino();
+      return;
+    }
+    // запоминаем строку, куда стала фигура
+    tetromino.row = row;
+    } else {
+        // поворачиваем фигуру на 90 градусов
+    const matrix = rotate(tetromino.matrix);
+    // если так ходить можно — запоминаем
+    if (isValidMove(matrix, tetromino.row, tetromino.col)) {
+      tetromino.matrix = matrix;
+    };
+    }
+  }
+}
+
         // следим за нажатиями на клавиши
         document.addEventListener('keydown', function(e) {
           // если игра закончилась — сразу выходим
@@ -377,7 +442,7 @@
             }
           }
     
-          // пробел — поворот
+          // стрелка вверх — поворот
           if (e.which === 32) {
             // поворачиваем фигуру на 90 градусов
             const matrix = rotate(tetromino.matrix);
