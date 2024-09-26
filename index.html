@@ -6,7 +6,7 @@
     <title>Резюме - Андрей Павлушов</title>
     <style>
         body {
-            background-color: #00FF00; /* Ярко-зеленый фон */
+            background-color: #00eeff; /* Ярко-голубой фон */
             font-family: 'Courier New', Courier, monospace; /* Шрифт в стиле 90-х */
             color: #000080; /* Темно-синий цвет текста */
             text-align: center;
@@ -25,6 +25,10 @@
         }
         a:hover {
             text-decoration: underline; /* Подчеркивание при наведении */
+        }
+        .copyleft {
+            display:inline-block;
+            transform: rotate(180deg);
         }
         .container {
             width: 80%;
@@ -69,7 +73,7 @@
         <p><a href="https://github.com/kraislerrr" target="_blank">Мой GitHub</a></p>
 
         <footer>
-            <p>&#8580; 1999 Иван Иванов. Все права защищены.</p>
+            <p><span class="copyleft">&copy;</span> 1999 Иван Иванов. Все права защищены.</p>
         </footer>
     </div>
 </body>
