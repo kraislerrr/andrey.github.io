@@ -40,7 +40,14 @@
         canvas {
         border: 1px solid rgb(198, 38, 38);
         }
+        summary {
+        list-style: none;
         
+        }
+        details {
+        display: inline;
+        vertical-align: top;
+        }
     </style>
 </head>
 <body>
@@ -75,15 +82,46 @@
             <li>Монтаж и настройка СКС</li>
             <li>Сборка серверов</li>
         </ul>
-
+        <div>
         <h2>Навыки</h2>
-        <ul>
+        <details>
+          <summary>Линукс,</summary>
+          <p><a href="https://stepik.org/cert/2544210?lang=en">Ansible</a></p>
+          <p><a href="https://stepik.org/cert/2560572?lang=en">Doker</a></p>
+          <p>k8s</p>
+          <p>Zabbix</p>
+        </details>
+        <details>
+          <summary>ЭВМ,</summary>
+          <p><a href="https://www.sololearn.com/Certificate/1073-18827246/jpg/">Python</a></p>
+          <p><a href="https://www.sololearn.com/certificates/course/en/18827246/1024/landscape/png">JS</a></p>
+          <p><a href="https://www.sololearn.com/Certificate/1060-18827246/jpg/">SQL</a></p>
+          <p>Powershell</p>
+        </details>
+        <details>
+          <summary>ЛВС,</summary>
+          <p><a href="https://drive.google.com/file/d/19IF9dh_AQisMSIo_G28gqNbNe-Nl3dFw/view?usp=sharing">Cisco</a></p>
+          <p><a href="https://drive.google.com/file/d/1QLmSDoEBGfU3Gu1qSiAAJUEjCESr4YUb/view?usp=sharing">Juniper</a></p>
+          <p>MikroTik</p>
+          <p>Ubiquiti</p>
+        </details>
+        <details>
+          <summary>Прочее</summary>
+          <p>Wireshark</p>
+          <p>Burp Suite</p>
+          <p><a href="https://drive.google.com/file/d/1I3m48OtTF0yKExMEEt9EO5eyiBT6KZf_/view?usp=sharing">CCTV</a></p>
+          <p>SolidWorks</p>
+        </details>
+        </div>
+        <!--<ul>
             <li>Bash, Python, JS</li>
             <li>Cisco, MikroTik, Ubiquiti</li>
             <li>Trassir, Hikvision, Dahua</li>
             <li>Zigbee, LoRaWAN, M2M</li>
             <li>CCNA, CCTV, IoT</li>
-        </ul>
+            <li>Kali, Burp Suite, Wireshark</li>
+            <li>NFtables, SQL, systemd, zabbix, ansible, doker, k8s</li>
+        </ul>-->
 
         <h2>Интересы</h2>
         <p>Программирование, игры, чтение научной фантастики.</p>
@@ -378,67 +416,67 @@
           }
         }
         // управление тачем
-    const swipeArea = document.getElementById('swipeArea');
+        const swipeArea = document.getElementById('swipeArea');
 
-let touchStartX = 0;
-let touchStartY = 0;
-let touchEndX = 0;
-let touchEndY = 0;
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let touchEndX = 0;
+        let touchEndY = 0;
 
-swipeArea.addEventListener('touchstart', function(event) {
-  touchStartX = event.changedTouches[0].screenX;
-  touchStartY = event.changedTouches[0].screenY;
-}, false);
+        swipeArea.addEventListener('touchstart', function(event) {
+          touchStartX = event.changedTouches[0].screenX;
+          touchStartY = event.changedTouches[0].screenY;
+        }, false);
 
-swipeArea.addEventListener('touchend', function(event) {
-  touchEndX = event.changedTouches[0].screenX;
-  touchEndY = event.changedTouches[0].screenY;
-  handleSwipeGesture();
-}, false);
+        swipeArea.addEventListener('touchend', function(event) {
+          touchEndX = event.changedTouches[0].screenX;
+          touchEndY = event.changedTouches[0].screenY;
+          handleSwipeGesture();
+        }, false);
 
-function handleSwipeGesture() {
-  const deltaX = touchEndX - touchStartX;
-  const deltaY = touchEndY - touchStartY;
+        function handleSwipeGesture() {
+          const deltaX = touchEndX - touchStartX;
+          const deltaY = touchEndY - touchStartY;
 
-  if (Math.abs(deltaX) > Math.abs(deltaY)) {
-    if (deltaX > 0) {
-      // если влево, то уменьшаем индекс в столбце, если вправо — увеличиваем
-      const col = tetromino.col + 1;
-    // если так ходить можно, то запоминаем текущее положение 
-    if (isValidMove(tetromino.matrix, tetromino.row, col)) {
-      tetromino.col = col;
-    }
-    } else {
-      // если влево, то уменьшаем индекс в столбце, если вправо — увеличиваем
-      const col = tetromino.col - 1;
-    // если так ходить можно, то запоминаем текущее положение 
-    if (isValidMove(tetromino.matrix, tetromino.row, col)) {
-      tetromino.col = col;
-    }
-    }
-  } else {
-    if (deltaY > 0) {
+          if (Math.abs(deltaX) > Math.abs(deltaY)) {
+            if (deltaX > 0) {
+              // если вправо — увеличиваем индекс в столбце
+              const col = tetromino.col + 1;
+            // если так ходить можно, то запоминаем текущее положение 
+            if (isValidMove(tetromino.matrix, tetromino.row, col)) {
+              tetromino.col = col;
+            }
+            } else {
+          // если влево, то уменьшаем индекс в столбце
+          const col = tetromino.col - 1;
+        // если так ходить можно, то запоминаем текущее положение 
+        if (isValidMove(tetromino.matrix, tetromino.row, col)) {
+          tetromino.col = col;
+        }
+        }
+      } else {
+        if (deltaY > 0) {
         // смещаем фигуру на строку вниз
-    const row = tetromino.row + 1;
-    // если опускаться больше некуда — запоминаем новое положение
-    if (!isValidMove(tetromino.matrix, row, tetromino.col)) {
-      tetromino.row = row - 1;
-      // ставим на место и смотрим на заполненные ряды
-      placeTetromino();
-      return;
+        const row = tetromino.row + 1;
+        // если опускаться больше некуда — запоминаем новое положение
+        if (!isValidMove(tetromino.matrix, row, tetromino.col)) {
+          tetromino.row = row - 1;
+          // ставим на место и смотрим на заполненные ряды
+          placeTetromino();
+          return;
+        }
+        // запоминаем строку, куда стала фигура
+        tetromino.row = row;
+        } else {
+            // поворачиваем фигуру на 90 градусов
+        const matrix = rotate(tetromino.matrix);
+        // если так ходить можно — запоминаем
+        if (isValidMove(matrix, tetromino.row, tetromino.col)) {
+          tetromino.matrix = matrix;
+        };
+        }
+      }
     }
-    // запоминаем строку, куда стала фигура
-    tetromino.row = row;
-    } else {
-        // поворачиваем фигуру на 90 градусов
-    const matrix = rotate(tetromino.matrix);
-    // если так ходить можно — запоминаем
-    if (isValidMove(matrix, tetromino.row, tetromino.col)) {
-      tetromino.matrix = matrix;
-    };
-    }
-  }
-}
 
         // следим за нажатиями на клавиши
         document.addEventListener('keydown', function(e) {
@@ -486,6 +524,6 @@ function handleSwipeGesture() {
     
         // старт игры
         rAF = requestAnimationFrame(loop);
-      </script>
+    </script>
 </body>
 </html>
