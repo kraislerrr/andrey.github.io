@@ -37,14 +37,18 @@
             padding: 20px;
             background-color: #FFFFFF; /* Белый фон для контейнера */
         }
-        canvas {
+        #Vscore { 
+        position: absolute;
+        vertical-align: top
+        }
+        canvas {/* окно тетриса */
         border: 1px solid rgb(198, 38, 38);
         }
-        summary {
+        summary {/* маскирую детейлс */
         list-style: none;
         color:#0000FF;
         }
-        details {
+        details {/* навыки в ряд и вверху */
         display: inline;
         vertical-align: top;
         }
@@ -121,7 +125,9 @@
         <p><a href="https://www.linkedin.com/in/andrey-pavlushov" target="_blank">Мой LinkedIn</a></p>
         <p><a href="https://github.com/kraislerrr" target="_blank">Мой GitHub</a></p>
         <div id="swipeArea">
-        <canvas width="160" height="320" id="game"></canvas>
+            
+            <canvas width="160" height="320" id="game"></canvas>
+            <a id="Vscore" style="display: none"></a>
         </div>
         <footer>
             <p><span class="copyleft">&copy;</span>1997г. Все права защимлены.</p>
@@ -135,6 +141,7 @@
         // получаем доступ к холсту
         const canvas = document.getElementById('game');
         const context = canvas.getContext('2d');
+        var Dscor = document.getElementById('Vscore');
         // размер квадратика
         const grid = 16;
         // массив с последовательностями фигур, на старте — пустой
@@ -212,6 +219,8 @@
         let rAF = null;  
         // флаг конца игры, на старте — неактивный
         let gameOver = false;
+        // количество набранных очков на старте
+        let score = 0;
     
     
         // Функция возвращает случайное число в заданном диапазоне
@@ -318,7 +327,10 @@
           for (let row = playfield.length - 1; row >= 0; ) {
             // если ряд заполнен
             if (playfield[row].every(cell => !!cell)) {
-    
+              // добавляем счет
+              score += 10;
+              // делаем видимым счет
+              Dscor.style.display = "inline";
               // очищаем его и опускаем всё вниз на одну клетку
               for (let r = row; r >= 0; r--) {
                 for (let c = 0; c < playfield[r].length; c++) {
@@ -354,7 +366,9 @@
             context.fillText('GAME OVER!', canvas.width / 2, canvas.height / 2);
           }
     
-        
+          function showScore() {
+            Dscor.innerHTML = score;
+          }
     
         // главный цикл игры
         function loop() {
@@ -375,7 +389,8 @@
               }
             }
           }
-    
+          // выводим score
+          showScore();
           // рисуем текущую фигуру
           if (tetromino) {
     
