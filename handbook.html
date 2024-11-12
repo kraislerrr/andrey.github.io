@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Справочник команд Linux</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+    }
+    
+    header {
+        background: #007BFF;
+        color: #fff;
+        padding: 10px 0;
+        text-align: center;
+    }
+    
+    nav {
+        background: #333
+    }
+    .mirror {
+            display:inline-block;
+            transform: rotate(180deg);
+    }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Справочник команд Linux</h1>
+        <p>Полный справочник по основным командам Linux с примерами использования.</p>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#basic">Основные команды</a></li>
+            <li><a href="#text">Работа с текстом</a></li>
+            <li><a href="#processes">Управление процессами</a></li>
+            <li><a href="#system">Системная информация</a></li>
+            <li><a href="#network">Сетевые команды</a></li>
+            <li><a href="#permissions">Права доступа</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section id="basic">
+            <h2>Основные команды</h2>
+            <ul>
+                <li><strong>ls</strong> — вывод списка файлов и директорий.</li>
+                <li><strong>cd</strong> — смена директории.</li>
+                <li><strong>pwd</strong> — вывод текущей директории.</li>
+                <li><strong>cp</strong> — копирование файлов и директорий.</li>
+                <li><strong>mv</strong> — перемещение или переименование файлов и директорий.</li>
+                <li><strong>rename 's/\.txt$/\.pdf/' *.txt</strong> — переименовать файлы.</li>
+                <li><strong>rm</strong> — удаление файлов и директорий.</li>
+                <li><strong>!!</strong> — последняя команда.</li>
+                <li><strong>!1</strong> — первая команда в history.</li>
+                 
+            </ul>
+        </section>
+        <section id="text">
+            <h2>Работа с текстом</h2>
+            <ul>
+                <li><strong>cat</strong> — вывод содержимого файла.</li>
+                <li><strong>tac</strong> — реверс вывод содержимого файла.</li>
+                <li><strong>grep</strong> — поиск текста в файлах.</li>
+                <li><strong>nano</strong>/<strong>vim</strong> — текстовые редакторы.</li>
+                <li><strong>wc</strong> — подсчет строк, слов и символов.</li>
+                <li><strong>head -n 10</strong> — вывод первых строк.</li>
+                <li><strong>tail -n 10</strong> — вывод последних строк.</li>
+            </ul>
+        </section>
+        <section id="processes">
+            <h2>Управление процессами</h2>
+            <ul>
+                <li><strong>ps -aux</strong> — вывод информации о процессах.</li>
+                <li><strong>pidof</strong> — ID процесса.</li>
+                <li><strong>top</strong> — мониторинг процессов в реальном времени.</li>
+                <li><strong>kill</strong> — убить процесс по его идентификатору.</li>
+                <li><strong>pkill</strong> — убить процесс по его имени.</li>
+                <li><strong>killall</strong> —  убить все процессы с указанным именем.</li>
+                <li><strong>cat /proc/meminfo</strong> — память.</li>
+                <li><strong>vmstat</strong> — память.</li>
+                <li><strong>systemctl status</strong> — состояние службы.</li>
+                <li><strong>ulimit -u</strong> — лимит процессов.</li>
+            </ul>
+        </section>
+        <section id="system">
+            <h2>Системная информация</h2>
+            <ul>
+                <li><strong>df -h</strong> — информация о файловых системах.</li>
+                <li><strong>du -s</strong> — информация о файловых системах.</li>
+                <li><strong>free</strong> — информация о памяти.</li>
+                <li><strong>uname</strong> — информация о системе.</li>
+                <li><strong>iostat</strong> — запись на диск.</li>
+                <li><strong>iotop</strong> — запись на диск по процессам.</li>
+                <li><strong>smartctl -a /dev/sdc</strong> — SMART.</li>
+                <li><strong>cat /proc/mdstat</strong> — RAID</li>
+                <li><strong>cat /etc/*-release</strong> — дистрибутив.</li>
+                <li><strong>whereis</strong> — полный путь к программе.</li>
+            </ul>
+        </section>
+        <section id="network">
+            <h2>Сетевые команды</h2>
+            <ul>
+                <li><strong>ping</strong> — проверка доступности узла.</li>
+                <li><strong>ifconfig</strong>/<strong>ip a</strong> — настройка сетевых интерфейсов.</li>
+                <li><strong>netstat -tulpn</strong> — информация о сетевых соединениях.</li>
+                <li><strong>ss -lntu</strong> — информация о сетевых соединениях.</li>
+
+            </ul>
+        </section>
+        <section id="permissions">
+            <h2>Права доступа</h2>
+            <ul>
+                <li><strong>chmod</strong> — изменение прав доступа к файлам.</li>
+                <li><strong>chown</strong> — изменение владельца файла.</li>
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p><span class="mirror">©</span> 9/17/1991 Справочник команд Linux</p>
+    </footer>
+</body>
+</html>
