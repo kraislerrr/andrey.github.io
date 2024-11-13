@@ -40,21 +40,17 @@
             <li><a href="#processes">Управление процессами</a></li>
             <li><a href="#system">Системная информация</a></li>
             <li><a href="#network">Сетевые команды</a></li>
-            <li><a href="#permissions">Права доступа</a></li>
+            <li><a href="#nftables">Права доступа</a></li>
         </ul>
     </nav>
     <main>
         <section id="basic">
             <h2>Основные команды</h2>
             <ul>
-                <li><strong>pwd</strong> — вывод текущей директории.</li>
-                <li><strong>cp</strong> — копирование файлов и директорий.</li>
-                <li><strong>mv</strong> — перемещение или переименование файлов и директорий.</li>
+                <li><strong>ls -alh</strong> — вывод файлов.</li>
                 <li><strong>rename 's/\.txt$/\.pdf/' *.txt</strong> — переименовать файлы.</li>
-                <li><strong>rm</strong> — удаление файлов и директорий.</li>
                 <li><strong>!!</strong> — последняя команда.</li>
                 <li><strong>!1</strong> — первая команда в history.</li>
-                 
             </ul>
         </section>
         <section id="text">
@@ -63,7 +59,6 @@
                 <li><strong>cat</strong> — вывод содержимого файла.</li>
                 <li><strong>tac</strong> — реверс вывод содержимого файла.</li>
                 <li><strong>grep</strong> — поиск текста в файлах.</li>
-                <li><strong>nano</strong>/<strong>vim</strong> — текстовые редакторы.</li>
                 <li><strong>wc</strong> — подсчет строк, слов и символов.</li>
                 <li><strong>head -n 10</strong> — вывод первых строк.</li>
                 <li><strong>tail -n 10</strong> — вывод последних строк.</li>
@@ -78,10 +73,9 @@
                 <li><strong>kill</strong> — убить процесс по его идентификатору.</li>
                 <li><strong>pkill</strong> — убить процесс по его имени.</li>
                 <li><strong>killall</strong> —  убить все процессы с указанным именем.</li>
-                <li><strong>cat /proc/meminfo</strong> — память.</li>
-                <li><strong>vmstat</strong> — память.</li>
                 <li><strong>systemctl status</strong> — состояние службы.</li>
                 <li><strong>ulimit -u</strong> — лимит процессов.</li>
+                <li><strong>whereis</strong> — полный путь к программе.</li>
             </ul>
         </section>
         <section id="system">
@@ -90,30 +84,44 @@
                 <li><strong>df -h</strong> — информация о файловых системах.</li>
                 <li><strong>du -s</strong> — информация о файловых системах.</li>
                 <li><strong>free</strong> — информация о памяти.</li>
+                <li><strong>vmstat</strong> — память.</li>
+                <li><strong>cat /proc/meminfo</strong> — память.</li>
                 <li><strong>uname</strong> — информация о системе.</li>
                 <li><strong>iostat</strong> — запись на диск.</li>
                 <li><strong>iotop</strong> — запись на диск по процессам.</li>
                 <li><strong>smartctl -a /dev/sdc</strong> — SMART.</li>
                 <li><strong>cat /proc/mdstat</strong> — RAID</li>
                 <li><strong>cat /etc/*-release</strong> — дистрибутив.</li>
-                <li><strong>whereis</strong> — полный путь к программе.</li>
+                
             </ul>
         </section>
         <section id="network">
             <h2>Сетевые команды</h2>
             <ul>
                 <li><strong>ping</strong> — проверка доступности узла.</li>
-                <li><strong>ifconfig</strong>/<strong>ip a</strong> — настройка сетевых интерфейсов.</li>
+                <li><strong>ifconfig / ip a</strong> — настройка сетевых интерфейсов.</li>
                 <li><strong>netstat -tulpn</strong> — информация о сетевых соединениях.</li>
                 <li><strong>ss -lntu</strong> — информация о сетевых соединениях.</li>
 
             </ul>
         </section>
-        <section id="permissions">
+        <section id="nftables">
             <h2>Права доступа</h2>
             <ul>
-                <li><strong>chmod</strong> — изменение прав доступа к файлам.</li>
-                <li><strong>chown</strong> — изменение владельца файла.</li>
+                <li><strong>sudo systemctl enable nftables</strong> — включить автозагрузку службы.</li>
+                <li><strong>sudo systemctl start nftables</strong> — запустить службу.</li>
+                <li><strong>cat /etc/nftables.conf</strong> — При запуске служба читает конфиг.</li>
+                <li><strong>sudo nft list ruleset</strong> — Просмотр действующих правил.</li>
+                <li><strong>sudo nft add rule [family] [table] [chain] [expression] [action]</strong>
+                     — Добавление правила.</li>
+                <li><strong>sudo nft add rule inet filter input iifname lo counter accept</strong> 
+                    — чтобы сервисы внутри нормально работали разрешить подключения к loopback.</li>
+                <li><strong>sudo nft add chain inet filter input '{ policy drop; }'</strong> 
+                    — После того как мы добавили все разрешающие правила в цепочке input, поменяем её политику на drop.</li>
+                <li><strong>sudo nft add rule inet filter input ct state established,related counter accept</strong> 
+                    — разрешить все ответные пакеты механизм connection tracking.</li>
+                <li><strong>sudo nft delete rule inet filter input handle 8</strong> — удалить правило по его номеру.</li>
+
             </ul>
         </section>
     </main>
