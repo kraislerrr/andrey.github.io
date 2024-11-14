@@ -41,6 +41,8 @@
             <li><a href="#system">Системная информация</a></li>
             <li><a href="#network">Сетевые команды</a></li>
             <li><a href="#nftables">Права доступа</a></li>
+            <li><a href="#knocking">Port Knocking</a></li>
+            <li><a href="#pSQL">PostgreSQL</a></li>
         </ul>
     </nav>
     <main>
@@ -122,6 +124,63 @@
                     — разрешить все ответные пакеты механизм connection tracking.</li>
                 <li><strong>sudo nft delete rule inet filter input handle 8</strong> — удалить правило по его номеру.</li>
 
+            </ul>
+        </section>
+        <section id="knocking">
+            <h2>но странный стук зовет в дорогу</h2>
+            <ul>
+                <li><strong>apt install knockd</strong> — установим.</li>
+                <li><strong>/etc/default/knockd</strong> — START_KNOCKD=1.</li>
+                <li><strong>/etc/knockd.conf</strong> — включить.</li>
+                <li><strong>sudo</strong> — включить.</li>
+                <li><strong>sudo</strong> — включить.</li>
+                <li><strong>sudo</strong> — включить.</li>
+                <li><strong>sudo</strong> — включить.</li>
+                <li><strong>sudo</strong> — включить.</li>
+                <li><strong>sudo</strong> — включить.</li>
+                <li><strong>sudo</strong> — включить.</li>
+                
+            </ul>
+        </section>
+        <section id="pSQL">
+            <h2>Dumbo the Flying Elephant</h2>
+            <ul>
+                <li><strong>pg_lsclusters</strong> — список кластеров.</li>
+                <li><strong>sudo pg_ctlcluster 16 main reload</strong> — Обновить конфигурацию.</li>
+                <li><strong>/var/log/postgresql/postgresql-16-main.log</strong> — Журнал.</li>
+                <li><strong>/etc/postgresql/16/main</strong> — конфигурации.</li>
+                <li><strong>=> \! pwd</strong> — Из psql можно выполнять команды shell.</li>
+                <li><strong>=> SHOW work_mem;</strong> — объём обработки запросов.<br>
+                    <strong>=> SELECT name, setting, unit FROM pg_settings WHERE name = 'work_mem';<br>
+                            => \dconfig work_mem</strong></li>
+                <li><strong>=> ALTER SYSTEM SET work_mem TO '64MB';</strong> — если мы собираемся выполнить запрос, 
+                    сортирующий большой объем данных, то для сеанса можно увеличить значение.</li>
+                <li><strong>=> SELECT pg_reload_conf();</strong> — Чтобы изменение вступило в силу.<br>
+                    <strong>sudo pg_ctlcluster 16 main reload</strong></li>
+                <li><strong>=> ALTER SYSTEM RESET work_mem;</strong> — default.</li>
+                <li><strong>psql -d база -U роль -h узел -p порт</strong> — параметры подключения.</li>
+                <li><strong>=> \conninfo</strong> — текущее подключение.</li>
+                <li><strong>=> SELECT name, setting, unit FROM pg_settings LIMIT 7;</strong>
+                     — Формат с выравниванием используется по умолчанию.</li>
+
+                <li>С помощью запроса SQL можно сформировать несколько других запросов SQL и записать их в файл, 
+                    используя команду \o<br>
+                    <strong>=> \a \t \pset fieldsep ''</strong> — меняем формат.<br>
+                    <strong>=> \o dev1_tools.sql</strong> — указываем файл.<br>
+                    <strong>=> SELECT format('SELECT %L AS tbl, count(*) FROM %I;', tablename, tablename)<br>
+                    FROM pg_tables LIMIT 3;</strong><br>
+                    <strong>=> \o \t \a</strong> — Вернем вывод на экран и восстановим форматирование по умолчанию.
+
+                <li><strong>=> \i dev1_tools.sql</strong> — Выполнить команды из файла.</li>
+                <li><strong>=> \set TEST Hi!</strong> — Установим переменную.</li>
+                <li><strong>=> \echo :TEST</strong> — вызов переменной.</li>
+                <li><strong>=> \unset TEST</strong> — сбросить значение.</li>
+                <li><strong>=> \set top5 'SELECT tablename, pg_total_relation_size(schemaname||''.''||tablename) 
+                    AS bytes FROM pg_tables ORDER BY bytes DESC LIMIT 5;'</strong> 
+                    — запись в переменную запроса на получение списка пяти самых больших таблиц.<br>
+                    <strong>=> :top5</strong> — выполнить запрос.</li>
+                <li>Без параметров \set выдает значения всех переменных, включая встроенные.</li>
+                <li><strong>\? variables</strong> — Справка по встроенным переменным.</li>
             </ul>
         </section>
     </main>
