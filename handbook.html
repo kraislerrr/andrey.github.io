@@ -80,6 +80,7 @@
                 <li><strong>apt list --installed</strong> — список установленных пакетов.</li>
                 <li><strong>dpkg-query -l</strong> — список установленных пакетов.</li>
                 <li><strong>whereis</strong> — полный путь к программе.</li>
+                <li><strong>apt-get --purge remove {NAME}</strong> — удалить пакет.</li>
             </ul>
         </section>
         <section id="system">
@@ -142,6 +143,7 @@
         <section id="pSQL">
             <h2>Dumbo the Flying Elephant</h2>
             <ul>
+                <li><strong>libicu-dev pkg-config zlib1g-dev bison flex libreadline-dev</strong> — нужны если собирать самому.</li>
                 <li><strong>pg_lsclusters</strong> — список кластеров.</li>
                 <li><strong>sudo pg_ctlcluster 16 main reload</strong> — Обновить конфигурацию.</li>
                 <li><strong>/var/log/postgresql/postgresql-16-main.log</strong> — Журнал.</li>
